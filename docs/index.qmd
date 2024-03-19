@@ -28,7 +28,7 @@ cv <- googlesheets4::read_sheet(cv_url)
 
 ### Contacto
 
-<center><a href='https://www.linkedin.com/in/jimena-fernandez-moyano/' target='_blank'><i class="fa-brands fa-linkedin"></i></a><a href='mailto:jimena.fernandez.moyano@gmail.com'><i class="fa fa-envelope" style="margin-left: 10px; margin-right: 10px;"></i></a><a href='https://github.com/jimefmoyano/' target='_blank'><i class="fa-brands fa-github"></i></a></center>
+<center><a href='https://jimena-fernandez-moyano.netlify.app/' target='_blank'><i class="fa-solid fa-globe" style ="margin-left: 10px; margin-right: 10px;"></i></a><a href='https://www.linkedin.com/in/jimena-fernandez-moyano/' target='_blank'><i class="fa-brands fa-linkedin"></i></a><a href='mailto:jimena.fernandez.moyano@gmail.com'><i class="fa fa-envelope" style="margin-left: 10px; margin-right: 10px;"></i></a><a href='https://github.com/jimefmoyano/' target='_blank'><i class="fa-brands fa-github"></i></a></center>
 
 </span>
 
@@ -154,10 +154,8 @@ Como entusiasta del análisis y la visualización de datos, me estimula resolver
 ```{r}
 create_section(cv, "working_experience")
 ```
-<br>
-<br>
-<br>
-<br>
+
+<br> <br> <br> <br>
 
 ## <i class="fa-solid fa-graduation-cap"></i> Educación
 
