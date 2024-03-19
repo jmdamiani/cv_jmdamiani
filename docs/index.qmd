@@ -32,7 +32,7 @@ cv <- googlesheets4::read_sheet(cv_url)
 
 </span>
 
-[ <i class="fa-solid fa-house" style="font-size: 14px;"></i> Av. Independencia 1738 12 C <br> <i class="fa-solid fa-city" style="font-size: 14px;"></i> Ciudad de Buenos Aires<br> <i class="fa-solid fa-phone" style="font-size: 14px;"></i> 1168925006<br> <i class="fa-solid fa-envelope" style="font-size: 12px;"></i> jimena.fernandez.moyano<br>@gmail.com ]{style="font-size: 12px;"}
+[<i class="fa-solid fa-house" style="font-size: 14px;"></i> Av. Independencia 1738 12 C <br> <i class="fa-solid fa-city" style="font-size: 14px;"></i> Ciudad de Buenos Aires<br> <i class="fa-solid fa-phone" style="font-size: 14px;"></i> 1168925006<br> <i class="fa-solid fa-envelope" style="font-size: 12px;"></i> jimena.fernandez.moyano<br>@gmail.com]{style="font-size: 12px;"}
 
 ### Idiomas
 
@@ -40,22 +40,8 @@ cv <- googlesheets4::read_sheet(cv_url)
 
 ### Skills y tools
 
-<i class="fab fa-r-project"></i> `R` <br>
-<i class="fab fa-share-alt"></i> `Shiny` <br>
-<i class="fa fa-area-chart" aria-hidden="true"></i> `tidyverse` <br>
-<i class="fab fa-markdown"></i> `RMarkdown / Quarto` <br>
-<i class="fas fa-code-branch"></i> `Git` <br>
-<i class="fab fa-github"></i> `GitHub` <br>
-<i class="fab fa-markdown"></i> `Markdown` <br>
-<i class="fab fa-html5"></i> `HTML` <br>
-<i class="fab fa-css3-alt"></i> `CSS` <br>
-<i class="fas fa-share-alt"></i> `Shiny` <br>
-<i class="fas fa-database"></i> `SQL` <br>
-<i class="fab fa-python"></i> `Python` <br>
-<i class="fab fa-table"></i> `Tableau`
-
+<i class="fab fa-r-project"></i> `R` <br> <i class="fab fa-share-alt"></i> `Shiny` <br> <i class="fa fa-area-chart" aria-hidden="true"></i> `tidyverse` <br> <i class="fab fa-markdown"></i> `RMarkdown / Quarto` <br> <i class="fas fa-code-branch"></i> `Git` <br> <i class="fab fa-github"></i> `GitHub` <br> <i class="fab fa-markdown"></i> `Markdown` <br> <i class="fab fa-html5"></i> `HTML` <br> <i class="fab fa-css3-alt"></i> `CSS` <br> <i class="fas fa-share-alt"></i> `Shiny` <br> <i class="fas fa-database"></i> `SQL` <br> <i class="fab fa-python"></i> `Python` <br> <i class="fab fa-table"></i> `Tableau`
 :::
-
 
 <!-- ### Grants -->
 
@@ -76,8 +62,6 @@ cv <- googlesheets4::read_sheet(cv_url)
 <!-- <i class="fas fa-box-open"></i> [Package {dados} - Available on CRAN](https://cienciadedatos.github.io/dados/) - Co-Author. -->
 
 <!-- <i class="fas fa-box-open"></i> [Package {mananciais}](https://beatrizmilz.github.io/mananciais/) - Author, maintainer. -->
-
-
 
 ::: {.column width="5%"}
 :::
@@ -133,6 +117,28 @@ create_section <- function(cv_data, section_name){
     gt::cols_align(align = "left", columns = main_text) |> 
     gt::cols_width(date ~ gt::pct(10))
 }
+
+create_section2 <- function(cv_data, section_name){
+  cv_data |>
+    dplyr::mutate(in_resume = as.character(in_resume),
+                  end = tidyr::replace_na(end, 9999),
+                  loc = dplyr::if_else(loc == "Online", NA_character_, loc)) |>
+    dplyr::filter(in_resume %in% c("TRUE", "VERDADEIRO"), section == section_name) |>
+    dplyr::select(section:description_1) |>
+    dplyr::arrange(desc(end), desc(start)) |>
+    dplyr::mutate(
+      main_text =
+        glue::glue(
+          "**{title}** <br> {col_br(institution)} {col_br(description_1)} {col_br_loc(loc)}"),
+      .before = everything()
+    ) |>
+    dplyr::select(-c(start, end, section, title, institution, loc, description_1)) |>
+    gt::gt() |>
+    gt::fmt_markdown(columns = main_text) |> 
+    gt::tab_options(column_labels.hidden = TRUE, table.width = gt::pct(100)) |> 
+    gt::cols_align(align = "left", columns = main_text) 
+}
+
 ```
 
 <!-- Main content -->
@@ -148,13 +154,16 @@ Como entusiasta del análisis y la visualización de datos, me estimula resolver
 ```{r}
 create_section(cv, "working_experience")
 ```
+<br>
+<br>
+<br>
+<br>
 
 ## <i class="fa-solid fa-graduation-cap"></i> Educación
 
 ```{r}
 create_section(cv, "education")
 ```
-
 
 ## <i class="fa-solid fa-person-chalkboard"></i> Cursos
 
@@ -167,15 +176,12 @@ create_section(cv, "cursos")
 ## <i class="fa-solid fa-chalkboard-user"></i> Algunos trabajos realizados
 
 ```{r}
-create_section(cv, "trabajos_realizados")
+create_section2(cv, "trabajos_realizados")
 ```
-
-
-
 
 <p class="small">
 
-Resume made with [Quarto](https://quarto.org/). Last updated on `r format.Date(Sys.Date(), "%b %d, %Y")`. <br> Code available on <i class="fa-brands fa-github"></i> [GitHub](https://github.com/beatrizmilz/resume/blob/master/docs/index.qmd). <br>License: [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/).
+Resume made with [Quarto](https://quarto.org/). Last updated on `r format.Date(Sys.Date(), "%b %d, %Y")`. <br> Code available on <i class="fa-brands fa-github"></i> [GitHub](https://github.com/jimefmoyano/cv_jimena_fmoyano). <br>License: [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/).
 
 </p>
 :::
